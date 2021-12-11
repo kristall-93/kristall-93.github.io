@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Карты – Яндекс, 2ГИС, Google</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- Подключение API для Яндекс карт: -->
+    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU"></script>
+
+    <!-- Подключение API для 2ГИС карт: -->
+    <script src="https://maps.api.2gis.ru/2.0/loader.js?pkg=full"></script>
+
+    <!-- Создание карты: -->
+    <script type="text/javascript">
+
+        // для блока "Яндекс карты, вариант 1":
+        ymaps.ready(init);
+        function init() {
+            var myMap = new ymaps.Map("map", {
+                center: [56.0527, 92.8929],
+                zoom: 15
+            });
+            // создаем метку:
+            var placemark = new ymaps.Placemark([56.05277856869518, 92.89290599999997], {}, {
+                preset: "islands#blueIcon",
+            });
+            // добавляем метку на карту:
+            myMap.geoObjects.add(placemark);
+        }
+
+        // для блока "Яндекс карты, вариант 2":
+        ymaps.ready(init_2);
+        function init_2() {
+            var myMap = new ymaps.Map("map_2", {
+                center: [56.0527, 92.8929],
+                zoom: 15,
+                // отключим все элементы управления, чтобы была только чистая область карты:
+                controls: [
+                    // Можно добавлять или убирать отдельные элементы управления:
+                    // 'zoomControl', // Ползунок масштаба
+                    // 'rulerControl', // Линейка
+                    // 'routeButtonControl', // Панель маршрутизации
+                    // 'trafficControl', // Пробки
+                    // 'typeSelector', // Переключатель слоев карты
+                    // 'fullscreenControl', // Полноэкранный режим
+                    // Поисковая строка
+                    // new ymaps.control.SearchControl({
+                    //     options: {
+                    //         // вид - поисковая строка
+                    //         size: 'large',
+                    //         // Включим возможность искать не только топонимы, но и организации.
+                    //         provider: 'yandex#search'
+                    //     }
+                    // })
+                ],
+            });
+            // Открываем балун на карте (без привязки к геообъекту):
+            myMap.balloon.open([56.05277856869518, 92.89290599999997], '<svg width="172" height="41" viewBox="0 0 172 41" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M172 28.6559V24.6882C172 18.0753 166.639 12.638 159.973 12.638H157.365C150.699 12.638 145.338 18.0753 145.338 24.6882V28.9498C145.338 35.5627 150.699 41 157.365 41H159.973C165.624 41 170.406 37.0323 171.71 31.7419H164.465C163.451 33.9462 161.277 35.5627 158.669 35.5627C155.191 35.5627 152.293 32.7706 152.293 29.2437V28.8029H172V28.6559ZM152.293 24.3943C152.293 20.8674 155.191 18.0753 158.669 18.0753C162.147 18.0753 165.045 20.8674 165.045 24.3943V25.5699H152.293V24.3943ZM12.1719 2.93907L0 40.2652H8.11457L20.7211 2.93907L33.3277 40.2652H41.4423L29.2704 2.93907H12.1719ZM20.5762 30.8602L7.96967 40.2652H33.0379L20.5762 30.8602ZM46.9486 40.2652H54.1938V0L46.9486 5.43728V40.2652ZM133.166 13.0789H125.921L133.166 7.64158V2.79211H125.921V12.9319H121.284V17.9283H125.921V31.448C125.921 33.9462 126.356 40.8531 134.905 40.8531C138.527 40.8531 140.991 39.6774 140.991 39.6774V34.3871C140.991 34.3871 139.107 35.2688 136.933 35.2688C134.76 35.2688 133.311 33.6523 133.311 30.8602V17.9283H141.136V12.9319L133.166 13.0789ZM74.77 12.491H72.1618C65.4962 12.491 60.1348 17.9283 60.1348 24.5412V28.8029C60.1348 35.4158 65.4962 40.8531 72.1618 40.8531H74.77C80.4212 40.8531 85.203 36.8853 86.5072 31.595H79.262C78.2477 33.7993 76.0741 35.4158 73.4659 35.4158C69.9882 35.4158 67.0901 32.6237 67.0901 29.0968V28.6559H86.797V24.6882C86.797 17.9283 81.4356 12.491 74.77 12.491ZM79.8416 25.5699H67.0901V24.3943C67.0901 20.8674 69.9882 18.0753 73.4659 18.0753C76.9436 18.0753 79.8416 20.8674 79.8416 24.3943V25.5699ZM108.677 12.638C104.62 12.638 101.142 14.5484 99.8382 19.5448V13.0789H92.5931V40.2652H99.8382V22.7778C100.418 21.1613 101.867 18.2222 105.489 18.2222C110.416 18.2222 110.851 22.3369 110.851 23.6595C110.851 23.6595 110.851 23.6595 110.851 23.8065V40.2652H118.096V22.9247C117.951 19.9857 116.792 12.638 108.677 12.638Z" fill="#162E68"/></svg>', {
+                // Опция: не показываем кнопку закрытия.
+                closeButton: false
+            });
+        }
+
+        // для блока "Карта с использованием 2GIS MapJS API":
+        var map;
+        DG.then(function () {
+            map = DG.map('map_2gis', {
+                center: [56.0527, 92.8929],
+                zoom: 14,
+            });            
+            DG.marker([56.05277856869518, 92.89290599999997]).addTo(map).bindPopup('Digital-агентство Alente: услуги по разработке и продвижению сайтов');
+        });
+
+
+    </script>
+
+</head>
+
+<body>
+
+    <div class="wrapper">
+        <h1>Яндекс карты, вариант 1</h1>
+        <!-- контейнер для карты: -->
+        <div class="map" id="map" style="width: 600px; height: 400px"></div>
+    </div>
+
+    <div class="wrapper">
+        <h1>Яндекс карты, вариант 2</h1>
+        <!-- контейнер для карты: -->
+        <div class="map" id="map_2" style="width: 600px; height: 400px"></div>
+    </div>
+
+    <div class="wrapper">
+        <h1>Яндекс карты с использованием конструктора (взяли итоговый скрипт-ссылку) </h1>
+        <!-- контейнер для карты: -->
+        <div class="map">
+            <script type="text/javascript" charset="utf-8" async
+                src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3Afa94b2403edb45a977b2fa1385efef6c2a2de7cb2b83817db93aea4e716de3cc&amp;width=602&amp;height=400&amp;lang=ru_RU&amp;scroll=true"></script>
+        </div>
+    </div>
+
+    <div class="wrapper">
+        <h1>Яндекс карты с использованием конструктора (взяли итоговый iframe-ссылку)</h1>
+        <!-- контейнер для карты: -->
+        <div class="map">
+            <iframe
+                src="https://yandex.ru/map-widget/v1/?um=constructor%3Ae7c8c6f98853f7698347a48ec216053bd5a6677d797b6f7455aebbfc5bc9e99e&amp;source=constructor"
+                width="577" height="324" frameborder="0"></iframe>
+        </div>
+    </div>
+
+    <div class="wrapper">
+        <h1>Карта с использованием Конструктора 2GIS</h1>
+        <!-- контейнер для карты: -->
+        <div class="map">
+            <iframe id="map_391854976" frameborder="0" width="70%" height="600px" sandbox="allow-modals allow-forms allow-scripts allow-same-origin allow-popups allow-top-navigation-by-user-activation"></iframe>
+            <script type="text/javascript">(function (e, t) { var r = document.getElementById(e); r.contentWindow.document.open(), r.contentWindow.document.write(atob(t)), r.contentWindow.document.close() })("map_391854976", "PGJvZHk+PHN0eWxlPgogICAgICAgIGh0bWwsIGJvZHkgewogICAgICAgICAgICBtYXJnaW46IDA7CiAgICAgICAgICAgIHBhZGRpbmc6IDA7CiAgICAgICAgfQogICAgICAgIGh0bWwsIGJvZHksICNtYXAgewogICAgICAgICAgICB3aWR0aDogMTAwJTsKICAgICAgICAgICAgaGVpZ2h0OiAxMDAlOwogICAgICAgIH0KICAgICAgICAuYnVsbGV0LW1hcmtlciB7CiAgICAgICAgICAgIHdpZHRoOiAyMHB4OwogICAgICAgICAgICBoZWlnaHQ6IDIwcHg7CiAgICAgICAgICAgIGJveC1zaXppbmc6IGJvcmRlci1ib3g7CiAgICAgICAgICAgIGJhY2tncm91bmQtY29sb3I6ICNmZmY7CiAgICAgICAgICAgIGJveC1zaGFkb3c6IDAgMXB4IDNweCAwIHJnYmEoMCwgMCwgMCwgMC4yKTsKICAgICAgICAgICAgYm9yZGVyOiA0cHggc29saWQgIzAyODFmMjsKICAgICAgICAgICAgYm9yZGVyLXJhZGl1czogNTAlOwogICAgICAgIH0KICAgICAgICAucGVybWFuZW50LXRvb2x0aXAgewogICAgICAgICAgICBiYWNrZ3JvdW5kOiBub25lOwogICAgICAgICAgICBib3gtc2hhZG93OiBub25lOwogICAgICAgICAgICBib3JkZXI6IG5vbmU7CiAgICAgICAgICAgIHBhZGRpbmc6IDZweCAxMnB4OwogICAgICAgICAgICBjb2xvcjogIzI2MjYyNjsKICAgICAgICB9CiAgICAgICAgLnBlcm1hbmVudC10b29sdGlwOmJlZm9yZSB7CiAgICAgICAgICAgIGRpc3BsYXk6IG5vbmU7CiAgICAgICAgfQogICAgICAgIC5kZy1wb3B1cF9oaWRkZW5fdHJ1ZSB7CiAgICAgICAgICAgIGRpc3BsYXk6IGJsb2NrOwogICAgICAgIH0KICAgICAgICAubGVhZmxldC1jb250YWluZXIgLmxlYWZsZXQtcG9wdXAgLmxlYWZsZXQtcG9wdXAtY2xvc2UtYnV0dG9uIHsKICAgICAgICAgICAgdG9wOiAwOwogICAgICAgICAgICByaWdodDogMDsKICAgICAgICAgICAgd2lkdGg6IDIwcHg7CiAgICAgICAgICAgIGhlaWdodDogMjBweDsKICAgICAgICAgICAgZm9udC1zaXplOiAyMHB4OwogICAgICAgICAgICBsaW5lLWhlaWdodDogMTsKICAgICAgICB9CiAgICA8L3N0eWxlPjxkaXYgaWQ9Im1hcCI+PC9kaXY+PHNjcmlwdCB0eXBlPSJ0ZXh0L2phdmFzY3JpcHQiIHNyYz0iaHR0cHM6Ly9tYXBzLmFwaS4yZ2lzLnJ1LzIuMC9sb2FkZXIuanM/cGtnPWZ1bGwmYW1wO3NraW49bGlnaHQiPjwvc2NyaXB0PjxzY3JpcHQ+KGZ1bmN0aW9uKGUsdCl7dmFyIHI9SlNPTi5wYXJzZShlKSxuPUpTT04ucGFyc2UodCk7ZnVuY3Rpb24gYShlKXtyZXR1cm4gZGVjb2RlVVJJQ29tcG9uZW50KGF0b2IoZSkuc3BsaXQoIiIpLm1hcChmdW5jdGlvbihlKXtyZXR1cm4iJSIrKCIwMCIrZS5jaGFyQ29kZUF0KDApLnRvU3RyaW5nKDE2KSkuc2xpY2UoLTIpfSkuam9pbigiIikpfURHLnRoZW4oZnVuY3Rpb24oKXt2YXIgZT1ERy5tYXAoIm1hcCIse2NlbnRlcjpbbi5sYXQsbi5sb25dLHpvb206bi56b29tfSk7REcuZ2VvSlNPTihyLHtzdHlsZTpmdW5jdGlvbihlKXt2YXIgdCxyLG4sYSxvO3JldHVybntmaWxsQ29sb3I6bnVsbD09PSh0PWUpfHx2b2lkIDA9PT10P3ZvaWQgMDp0LnByb3BlcnRpZXMuZmlsbENvbG9yLGZpbGxPcGFjaXR5Om51bGw9PT0ocj1lKXx8dm9pZCAwPT09cj92b2lkIDA6ci5wcm9wZXJ0aWVzLmZpbGxPcGFjaXR5LGNvbG9yOm51bGw9PT0obj1lKXx8dm9pZCAwPT09bj92b2lkIDA6bi5wcm9wZXJ0aWVzLnN0cm9rZUNvbG9yLHdlaWdodDpudWxsPT09KGE9ZSl8fHZvaWQgMD09PWE/dm9pZCAwOmEucHJvcGVydGllcy5zdHJva2VXaWR0aCxvcGFjaXR5Om51bGw9PT0obz1lKXx8dm9pZCAwPT09bz92b2lkIDA6by5wcm9wZXJ0aWVzLnN0cm9rZU9wYWNpdHl9fSxwb2ludFRvTGF5ZXI6ZnVuY3Rpb24oZSx0KXtyZXR1cm4icmFkaXVzImluIGUucHJvcGVydGllcz9ERy5jaXJjbGUodCxlLnByb3BlcnRpZXMucmFkaXVzKTpERy5tYXJrZXIodCx7aWNvbjpmdW5jdGlvbihlKXtyZXR1cm4gREcuZGl2SWNvbih7aHRtbDoiPGRpdiBjbGFzcz0nYnVsbGV0LW1hcmtlcicgc3R5bGU9J2JvcmRlci1jb2xvcjogIitlKyI7Jz48L2Rpdj4iLGNsYXNzTmFtZToib3ZlcnJpZGUtZGVmYXVsdCIsaWNvblNpemU6WzIwLDIwXSxpY29uQW5jaG9yOlsxMCwxMF19KX0oZS5wcm9wZXJ0aWVzLmNvbG9yKX0pfSxvbkVhY2hGZWF0dXJlOmZ1bmN0aW9uKGUsdCl7ZS5wcm9wZXJ0aWVzLmRlc2NyaXB0aW9uJiZ0LmJpbmRQb3B1cChhKGUucHJvcGVydGllcy5kZXNjcmlwdGlvbikse2Nsb3NlQnV0dG9uOiEwLGNsb3NlT25Fc2NhcGVLZXk6ITB9KSxlLnByb3BlcnRpZXMudGl0bGUmJnQuYmluZFRvb2x0aXAoYShlLnByb3BlcnRpZXMudGl0bGUpLHtwZXJtYW5lbnQ6ITAsb3BhY2l0eToxLGNsYXNzTmFtZToicGVybWFuZW50LXRvb2x0aXAifSl9fSkuYWRkVG8oZSl9KX0pKCdbeyJ0eXBlIjoiRmVhdHVyZSIsInByb3BlcnRpZXMiOnsiY29sb3IiOiIjYmQwMmYyIiwidGl0bGUiOiIwSkRRdTlDMTBMM1JndEMxIiwiZGVzY3JpcHRpb24iOiJQSEErUkdsbmFYUmhiQzNRc05DejBMWFF2ZEdDMFlIUmd0Q3kwTDRnUVd4bGJuUmxPaURSZzlHQjBMdlJnOUN6MExnZzBML1F2aURSZ05DdzBMZlJnTkN3MExIUXZ0R0MwTHJRdFNEUXVDRFF2OUdBMEw3UXROQ3kwTGpRdHRDMTBMM1F1TkdPSU5HQjBMRFF1ZEdDMEw3UXNqd3ZjRDQ9IiwiekluZGV4IjoxMDAwMDAwMDAwfSwiZ2VvbWV0cnkiOnsidHlwZSI6IlBvaW50IiwiY29vcmRpbmF0ZXMiOls5Mi44OTE0NzQsNTYuMDUyMzc1XX0sImlkIjo4Njl9XScsJ3sibGF0Ijo1Ni4wMzQwNzQ5MTQ4MTYzMSwibG9uIjo5Mi45MDIyNjY4NDA4NjA2OCwiem9vbSI6MTJ9Jyk8L3NjcmlwdD48c2NyaXB0IGFzeW5jPSIiIHR5cGU9InRleHQvamF2YXNjcmlwdCIgc3JjPSJodHRwczovL3d3dy5nb29nbGV0YWdtYW5hZ2VyLmNvbS9ndGFnL2pzP2lkPVVBLTE1ODg2NjE2OC0xIj48L3NjcmlwdD48c2NyaXB0IHR5cGU9InRleHQvamF2YXNjcmlwdCI+KGZ1bmN0aW9uKGUpe2Z1bmN0aW9uIHQoKXtkYXRhTGF5ZXIucHVzaChhcmd1bWVudHMpfXdpbmRvdy5kYXRhTGF5ZXI9d2luZG93LmRhdGFMYXllcnx8W10sdCgianMiLG5ldyBEYXRlKSx0KCJjb25maWciLGUpLHdpbmRvdy5ndGFnPXR9KSgnVUEtMTU4ODY2MTY4LTEnKTwvc2NyaXB0PjwvYm9keT4=")</script>
+        </div>
+    </div>
+
+    <div class="wrapper">
+        <h1>Карта с использованием 2GIS MapJS API</h1>
+        <!-- контейнер для карты: -->
+        <div class="map" id="map_2gis" style="width:70%; height:400px"></div>
+    </div>
+
+    <div class="wrapper">
+        <h1>Google карты</h1>
+        <!-- контейнер для карты: -->
+        <div class="map">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2228.0606694930048!2d92.88951011591276!3d56.0522513806345!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5cd7af10543e07a3%3A0x2dc50ae415d6ea6!2sAlente!5e0!3m2!1sru!2sru!4v1639237267959!5m2!1sru!2sru" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+    </div>
+
+</body>
+
+</html>
