@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Popup</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="wrapper">
+        <h1>Пример попапа</h1>
+
+        <span class="popup__open">
+            Кнопка, запускающая попап
+        </span>
+    </div>
+
+    <div class="popup__bg">
+        <div class="popup" id="popup">
+            <h2>Заголовок попапа</h2>
+            <p>Контент попапа</p>
+
+            <!-- кнопка закрытия попапа -->
+            <span class="popup__close"></span>
+        </div>
+    </div>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+    <script>
+        $('.popup__open').click(function (e) {
+            e.preventDefault();
+            $('.popup__bg').fadeIn();
+            $('body').addClass('noscroll');
+        });
+        $('.popup__close').click(function () {
+            $('.popup__bg').fadeOut();
+            $('body').removeClass('noscroll');
+        });
+        $(document).mouseup(function (e) {
+            if ($(".popup__bg").has(e.target).length === 0) {
+                $('.popup__bg').fadeOut();
+                $('body').removeClass('noscroll');
+            }
+        });
+    </script>
+
+
+
+
+</body>
+
+</html>
