@@ -73,6 +73,8 @@ body.noscroll {
   -webkit-transition: all .3s;
   -o-transition: all .3s;
   transition: all .3s;
+  text-decoration: none;
+  color: #000;
 }
 
 .popup__bg {
